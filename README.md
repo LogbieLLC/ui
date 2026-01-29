@@ -92,6 +92,37 @@ For detailed framework usage, see [UI Framework Documentation](docs/UI_FRAMEWORK
 | `test:watch` | Run tests in watch mode |
 | `test:coverage` | Generate test coverage (JSON reporter) |
 
+## Testing
+
+### Running Tests
+
+**Use `bun run test` (or `npm run test`), not `bun test`.**
+
+```bash
+# Correct - runs Mocha test runner
+bun run test
+# or
+npm run test
+
+# Incorrect - uses Bun's native test runner (incompatible with Mocha)
+bun test
+```
+
+### Why?
+
+The test suite is written for **Mocha**, not Bun's native test runner. The tests use Mocha's API (`describe`, `it`, `before`, etc.) and are configured via `.mocharc.json` with TypeScript support through `ts-node`. 
+
+- ✅ `bun run test` executes the npm script which runs Mocha
+- ❌ `bun test` uses Bun's native test runner, which has a different API and will fail
+
+### Test Configuration
+
+Tests are configured in `.mocharc.json`:
+- TypeScript support via `ts-node`
+- Test files: `test/**/*.test.ts`
+- Timeout: 10 seconds
+- CommonJS module compilation for test execution
+
 ## Technology Stack
 
 - **Next.js** 16+ (App Router)
@@ -128,7 +159,7 @@ More examples and patterns are in [docs/UI_FRAMEWORK.md](docs/UI_FRAMEWORK.md).
 
 1. **Database**: Set `DATABASE_URL`, then run `db:push` or `db:migrate` to apply schema.
 2. **Auth**: Set `NEXT_PUBLIC_APP_URL` (or `NEXT_PUBLIC_BETTER_AUTH_URL`). Use `auth:db-push` to sync auth tables.
-3. **Testing**: Run `npm run test` or `bun test`. Use `ui.test` in tests for describe/it/assert.
+3. **Testing**: Run `bun run test` (or `npm run test`). **Note**: Use `bun run test`, not `bun test`, because the tests are written for Mocha. Use `ui.test` in tests for describe/it/assert.
 4. **Linting**: Run `npm run lint` (or equivalent) before committing.
 
 ## Environment Variables
