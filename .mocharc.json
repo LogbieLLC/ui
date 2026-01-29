@@ -1,0 +1,16 @@
+{
+  "require": ["ts-node/register"],
+  "extension": ["ts", "tsx"],
+  "spec": ["test/**/*.test.ts"],
+  "recursive": true,
+  "timeout": 10000,
+  "exit": true,
+  "colors": true,
+  "ts-node": {
+    "project": "tsconfig.test.json",
+    "compilerOptions": {
+      "module": "commonjs",
+      "esModuleInterop": true
+    }
+  }
+}
