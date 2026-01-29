@@ -8,10 +8,14 @@
  * The structure validation ensures the API is correct.
  */
 
-const { describe, it } = require("mocha");
-const assert = require("assert");
-const path = require("path");
-const fs = require("fs");
+import { describe, it } from "mocha";
+import assert from "assert";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 describe("UI Framework Actions", () => {
   describe("File structure validation", () => {
